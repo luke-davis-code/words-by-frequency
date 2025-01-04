@@ -34,13 +34,21 @@ def dict_to_txt(dictionary):
             text_file.write(str(key) + ": " + str(value) + "\n")
     print("SUCCESS: Word counts saved to output.txt")
 
+def get_input_words(input_word_file):
+    words_to_check = []
+    with open(input_word_file, "r") as input_file:
+        for line in input_file:
+            line = line.replace("\n", "")
+            words_to_check.append(line)
+    return words_to_check
+
+
 
 if __name__ == "__main__":
-    filename = "example.pdf"
-    words_to_check = ("frodo", "samwise", "gandalf", "aragorn", "legolas", "gimli", "boromir", "pippin", "merry",
-                      "elrond", "galadriel", "arwen", "eomer", "eowyn", "theoden", "saruman", "sauron", "gollum",
-                      "treebeard", "faramir", "denethor", "bilbo", "shadowfax", "shelob", "grima")
-    text = pdf_to_string(filename)
+    pdf_filename = "example.pdf"
+    input_word_file = "input.txt"
+    words_to_check = get_input_words(input_word_file)
+    text = pdf_to_string(pdf_filename)
     words = get_string_words(text)
     frequencies = get_freq_words(words, words_to_check)
     dict_to_txt(frequencies)
