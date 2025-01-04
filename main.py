@@ -28,10 +28,10 @@ def get_freq_words(words, words_to_check):
 
     return frequencies
 
-def dict_to_txt(dictionary):
+def freq_list_to_txt(list_frequencies):
     with open("output.txt", "w") as text_file:
-        for key, value in dictionary.items():
-            text_file.write(str(key) + ": " + str(value) + "\n")
+        for key, value in list_frequencies:
+            text_file.write(key + ": " + str(value) + "\n")
     print("SUCCESS: Word counts saved to output.txt")
 
 def get_input_words(input_word_file):
@@ -42,6 +42,8 @@ def get_input_words(input_word_file):
             words_to_check.append(line)
     return words_to_check
 
+def sort_dict(dictionary):
+    return sorted(dictionary.items(), key=lambda x: x[1], reverse=True)
 
 
 if __name__ == "__main__":
@@ -51,7 +53,5 @@ if __name__ == "__main__":
     text = pdf_to_string(pdf_filename)
     words = get_string_words(text)
     frequencies = get_freq_words(words, words_to_check)
-    dict_to_txt(frequencies)
-
-
-
+    frequencies_sorted = sort_dict(frequencies)
+    freq_list_to_txt(frequencies_sorted)
