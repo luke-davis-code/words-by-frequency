@@ -23,7 +23,14 @@ def get_freq_words(words, words_to_check):
     # Get the frequency of words given
     frequencies = {}
     for w in words_to_check:
-        frequency = words.count(w)
+        # Add support for combined frequencies of two words (use / as separator)
+        if "/" in w:
+            multiple = w.split("/")
+            frequency = 0
+            for m in multiple:
+                frequency += words.count(m)
+        else:
+            frequency = words.count(w)
         frequencies[w] = frequency
 
     return frequencies
